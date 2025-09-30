@@ -57,7 +57,7 @@ pub(crate) fn device(cpu: bool) -> Result<candle::Device> {
 impl stream_both::AppStateInner {
     pub fn new(args: &StandaloneArgs, config: &stream_both::Config) -> Result<Self> {
         let device = device(args.cpu)?;
-        let dtype = if device.is_cuda() { candle::DType::BF16 } else { candle::DType::F32 };
+        let dtype = if device.is_cuda() { candle::DType::F16 } else { candle::DType::F32 };
         let lm_model = moshi::lm::load_streaming(&config.lm_model_file, dtype, &device)?;
         let mimi_device = if config.use_cpu_for_mimi { &candle::Device::Cpu } else { &device };
         let mimi_model = moshi::mimi::load(

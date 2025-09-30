@@ -115,7 +115,7 @@ impl Model {
         speaker_pcm: Option<&Tensor>,
     ) -> Result<Tensor> {
         let t5_condition =
-            self.t5.forward(token_ids)?.to_dtype(candle::DType::BF16)?.apply(&self.t5_proj)?;
+            self.t5.forward(token_ids)?.to_dtype(candle::DType::F16)?.apply(&self.t5_proj)?;
         let conditions = match speaker_pcm {
             None => t5_condition,
             Some(speaker_pcm) => {
@@ -124,7 +124,7 @@ impl Model {
                     Some((mimi, proj)) => mimi
                         .encode_pre_quantize(speaker_pcm)?
                         .t()?
-                        .to_dtype(candle::DType::BF16)?
+                        .to_dtype(candle::DType::F16)?
                         .apply(proj)?,
                 };
                 let z = sc.zeros_like()?;

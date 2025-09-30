@@ -121,7 +121,7 @@ impl Tokenizer {
         let dtype = match dtype {
             "f32" => candle::DType::F32,
             "f16" => candle::DType::F16,
-            "bf16" => candle::DType::BF16,
+            "bf16" => candle::DType::F16,
             dtype => py_bail!("unsupported dtype '{dtype}'"),
         };
         let vb =
@@ -259,7 +259,7 @@ impl StreamTokenizer {
         let dtype = match dtype {
             "f32" => candle::DType::F32,
             "f16" => candle::DType::F16,
-            "bf16" => candle::DType::BF16,
+            "bf16" => candle::DType::F16,
             dtype => py_bail!("unsupported dtype '{dtype}'"),
         };
         let vb =

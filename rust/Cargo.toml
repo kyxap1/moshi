@@ -8,6 +8,10 @@ members = [
 ]
 resolver = "2"
 
+[env]
+CUDA_COMPUTE_CAP = "75"
+CUDA_LAUNCH_BLOCKING = "1"
+
 [workspace.package]
 version = "0.6.3"
 edition = "2021"

@@ -24,7 +24,7 @@ impl MaybeQuantizedWeight {
 pub fn matmul_dtype(device: &candle::Device) -> DType {
     // Dtype used for intermediate matmul in attention during quantized execution
     if device.is_cuda() {
-        DType::BF16
+        DType::F16
     } else {
         DType::F32
     }

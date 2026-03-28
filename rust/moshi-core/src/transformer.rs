@@ -4,7 +4,7 @@
 
 // Implements various modules for transformers with support for both quantized and unquantized forwards
 // Main differences between quantized and unquantized execution:
-// 1. For quantized models' attention `matmul_dtype`` converts intermediate activations to BF16 for
+// 1. For quantized models' attention `matmul_dtype`` converts intermediate activations to F16 for
 // more efficient matmuls
 // 2. Quantized tensors cannot be easily split (regarding cross attention and QKV proj weights)
 // 3. Linear and Quantized linear layers are two different types
@@ -485,7 +485,7 @@ impl StreamingMultiheadAttention {
             (k.clone(), v.clone())
         };
 
-        let xs = if q.dtype() == DType::BF16 && self.use_flash_attn {
+        let xs = if q.dtype() == DType::F16 && self.use_flash_attn {
             let q = q.transpose(1, 2)?;
             let k = k.transpose(1, 2)?;
             let v = v.transpose(1, 2)?;
